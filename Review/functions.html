@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Functions</h1>
+
+    <script>
+
+        // Function Declaration
+        function hello() {
+            document.write("Hello world");
+        }
+
+        hello();
+
+        // Function Expression
+        const hello2 = function () {
+            console.log("Hello world from function expression");
+        }
+        hello2();
+
+        // Arrow Functions
+        const hello3 = () => {
+            console.log("Hello world from arrow functions");
+        }
+        hello3();
+
+        // Returning Values
+        function getDayOfWeek() {
+            return new Date().getDay();
+        }
+
+        console.log(getDayOfWeek());
+
+
+        function add(n1 = 0, n2 = 0) {
+            // let _n1 = n1 || 0
+            // let _n2 = n2 || 0
+            return n1 + n2;
+        }
+        let sum = add(3, 5, 8); // The '8' argument will be ignored as the function only expects two parameters.
+        console.log(sum);
+
+        console.log(add(10)); // n2 will default to 0
+        console.log(add());   // Both n1 and n2 will default to 0
+
+    </script>
+</body>
+
+</html>

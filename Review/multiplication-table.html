@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Functions - Multiplication Table</h1>
+
+    <button onclick="showMultiplicationTable()">Show Multiplication Table</button>
+    <button onclick="clearMultiplicationTable()">Clear Multiplication Table</button>
+    <div id="output"></div>
+
+    <script>
+        const output = document.getElementById("output");
+
+        function showMultiplicationTable() {
+            let msg = "";
+            let n = parseFloat(prompt("Enter a number")); // Use parseFloat to ensure the input is treated as a number.
+
+            for (let i = 0; i <= 1000; i++) {
+                if (i === 10) {
+                    break; // This will stop the loop when 'i' reaches 10, effectively showing only up to 9 * n.
+                }
+                msg += `${n} x ${i} = ${(n * i)} <br>`;
+            }
+            output.innerHTML = msg;
+        }
+
+        function clearMultiplicationTable() {
+            output.innerHTML = "";
+        }
+    </script>
+</body>
+
+</html>

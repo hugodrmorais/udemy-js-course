@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let number = prompt("Enter a number");
+
+        let index = 0;
+        while (index <= 10) {
+            index++;
+            if (index === 5) {
+                continue; // Skips the rest of the current iteration when index is 5
+            }
+            document.write(`${number} x ${index} = ${(index * number)} <br>`);
+        }
+        document.write("Exited the while loop<br>");
+
+        index = 0;
+        do {
+            if (index > 10) {
+                alert("Index is greater than 10");
+                break; // Exits the do-while loop if index becomes greater than 10
+            }
+            document.write(`${number} x ${index} = ${(index * number)} <br>`);
+            index++;
+        } while (index <= 10);
+
+        document.write("Exited the do-while loop<br>");
+
+        for (let j = 0; j <= 10; j++) {
+            if (j === 5) {
+                continue; // Skips the rest of the current iteration when j is 5
+            }
+            document.write(`${number} x ${j} = ${(j * number)} <br>`);
+        }
+        document.write("Exited the for loop");
+    </script>
+</body>
+
+</html>
