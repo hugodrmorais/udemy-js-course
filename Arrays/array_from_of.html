@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+  <body>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta natus ipsum est dicta esse veritatis asperiores
+        sequi ea tenetur a, quibusdam quam mollitia laudantium enim temporibus quia animi in perspiciatis!</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta natus ipsum est dicta esse veritatis asperiores
+        sequi ea tenetur a, quibusdam quam mollitia laudantium enim temporibus quia animi in perspiciatis!</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta natus ipsum est dicta esse veritatis asperiores
+        sequi ea tenetur a, quibusdam quam mollitia laudantium enim temporibus quia animi in perspiciatis!</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta natus ipsum est dicta esse veritatis asperiores
+        sequi ea tenetur a, quibusdam quam mollitia laudantium enim temporibus quia animi in perspiciatis!</p>
+
+    <script>
+      // Creates a new array with 3 empty slots.
+      const arr1 = new Array(3);
+      console.log(arr1); // Output: [empty × 3]
+      console.log(arr1.length); // Output: 3
+
+      // Creates a new array with a single element: the number 3.
+      const arr3 = Array.of(3);
+      console.log(arr3); // Output: [3]
+      console.log(arr3.length); // Output: 1
+
+      // Creates a new array (arr2) from an array-like or iterable object (arr1).
+      // Since arr1 has empty slots, arr2 will also have empty slots initially.
+      const arr2 = Array.from(arr1);
+      arr2.push(4, 5); // Adds elements 4 and 5 to arr2.
+      // console.log(arr2); // Output: [empty × 3, 4, 5]
+
+      // Selects all <p> elements from the document.
+      // document.querySelectorAll returns a NodeList, which is array-like but not a true Array.
+      let paragraphs = document.querySelectorAll('p');
+      console.log(paragraphs); // Output: NodeList [p, p, p, p] (or similar)
+
+      // // Example of using forEach directly on the NodeList (works in modern browsers).
+      // paragraphs.forEach(function (p, i) {
+      //     p.textContent = `${++i} - ${p.textContent}`; // Prepends index to paragraph text.
+      // });
+
+      // Converts the NodeList into a true JavaScript Array.
+      // This allows using Array methods like .map().
+      paragraphs = Array.from(paragraphs);
+
+      // Uses .map() on the newly converted array.
+      // .map() creates a new array by calling a function on each element.
+      // Here, it iterates through each paragraph element.
+      paragraphs.map(function (p, i) {
+          // Updates the text content of each paragraph.
+          // `++i` increments i *before* using it, so it starts from 1.
+          p.textContent = `${++i} - ${p.textContent}`;
+      });
+    </script>
+  </body>
+</html>
