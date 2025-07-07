@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    /* Styles for a grey container */
+    .container2 {
+      background-color: #ccc;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Events</h1>
+  <div id="container">
+    <button id="btn1">Button 1</button>
+    <button id="btn2" onclick="console.log('click with onclick attribute')">Button 2</button>
+    <button id="btn3">Button 3</button>
+  </div>
+  <hr>
+  <h1>Event Delegation</h1>
+  <div class="container2">
+    <button>Button 1</button>
+    <button>Button 2</button>
+    <button>Button 3</button>
+  </div>
+
+  <script>
+    // Get references to the buttons by their IDs
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    const btn3 = document.getElementById("btn3");
+
+    // Define a named function to be used as an event handler
+    function clicked() {
+        console.log("click from 'clicked' function");
+    }
+
+    // --- Event Handling Method 1: Using "on[eventname]" property ---
+    // Assign an anonymous function to btn1's onclick property.
+    // This will be overwritten by the next line.
+    btn1.onclick = function () {
+        console.log("click from btn1 anonymous function");
+    };
+    // Assign the named 'clicked' function to btn1's onclick property.
+    // This will overwrite the previous anonymous function. Only one handler can be assigned this way.
+    btn1.onclick = clicked; // When btn1 is clicked, "click from 'clicked' function" will be logged.
+
+    // Assign an anonymous function to btn2's onclick property.
+    // This will execute when btn2 is clicked, in addition to any addEventListener handlers.
+    btn2.onclick = function () {
+        console.log("anonymous function on btn2");
+    };
+
+    // --- Event Handling Method 2: Using addEventListener() (Recommended) ---
+    // addEventListener allows multiple event handlers for the same event on the same element.
+    // Add the named 'clicked' function as a listener for btn2's click event.
+    btn2.addEventListener("click", clicked);
+
+    // Add another anonymous function as a listener for btn2's click event.
+    btn2.addEventListener("click", function () {
+        console.log("click from anonymous function");
+    });
+    // When btn2 is clicked, the following will be logged (order might vary slightly):
+    // - "click with onclick attribute" (from inline HTML)
+    // - "anonymous function on btn2" (from btn2.onclick)
+    // - "click from 'clicked' function" (from addEventListener)
+    // - "click from anonymous function" (from addEventListener)
+
+    // --- Event Bubbling vs. Capturing ---
+    // Add a click listener to the entire document.
+    // The third argument (false) means it's in the 'bubbling' phase (default).
+    // This means the event will "bubble up" from the target element to the document.
+    document.addEventListener("click", function (e) {
+        console.log("clicked on document");
+        console.log("e.target:", e.target);         // The actual element that was clicked.
+        console.log("e.currentTarget:", e.currentTarget); // The element to which the event listener is attached (here, the document).
+        console.log("this:", this);                 // 'this' inside a regular function refers to currentTarget.
+    }, false); // 'false' (or omitted) for bubbling phase
+
+    // Add a click listener to btn3.
+    btn3.addEventListener("click", function (e) {
+        console.log("Event object:", e); // Logs the full event object.
+        e.stopPropagation();             // Prevents the event from bubbling up to parent elements (like the document or container).
+        console.log("clicked on btn3");
+    }, false); // 'false' for bubbling phase
+
+    // Get a reference to the container div
+    const container = document.getElementById("container");
+    // Add a click listener to the container.
+    // The third argument (true) means it's in the 'capturing' phase.
+    // This means the event will be caught by the container *before* it reaches its target children during the capture phase.
+    container.addEventListener("click", function () {
+        console.log("clicked on container (capturing)");
+    }, true); // 'true' for capturing phase
+
+    // --- Event Delegation ---
+    // Get a reference to the container for event delegation
+    const container2 = document.querySelector(".container2");
+    // Get all buttons within container2 (NodeList)
+    const btns = document.querySelectorAll(".container2 button");
+    console.log("Buttons in container2:", btns); // Logs the NodeList of buttons.
+
+    // --- Traditional approach (commented out) ---
+    // This loops through each button and attaches an individual event listener.
+    // For many buttons, this can be less performant and harder to manage.
+    // [...btns].forEach(btn => { // Convert NodeList to Array to use forEach easily
+    //     btn.addEventListener("click", function (e) {
+    //         e.stopPropagation(); // Stop event from bubbling up
+    //         console.log(e.target); // The specific button clicked
+    //     });
+    // });
+
+    console.log("this (global context):", this); // 'this' outside any function or within an arrow function refers to the global object (window in browsers).
+
+    // --- Event Delegation approach (Recommended for multiple similar elements) ---
+    // Attach a single event listener to the parent container (.container2).
+    // The event will bubble up from the clicked button to the container.
+    container2.addEventListener("click", (e) => { // Using an arrow function, so 'this' remains lexical (global in this case).
+        // e.stopPropagation(); // If uncommented, this would stop the event from bubbling further up past container2.
+        console.log("clicked on container2 (delegation)");
+        console.log("e.target:", e.target);         // The specific element that was clicked (e.g., a button).
+        console.log("e.currentTarget:", e.currentTarget); // The element the listener is attached to (container2).
+        console.log("this (arrow function):", this); // 'this' in an arrow function retains the 'this' value from the enclosing lexical context. Here, it's the global object (window).
+
+        // Check if the clicked element (e.target) is actually a BUTTON.
+        // This is the core of event delegation: handling events on children via a parent.
+        if (e.target.nodeName === "BUTTON") {
+            console.log("A button inside container2 was clicked:", e.target.textContent);
+            // You can perform specific actions based on which button was clicked, e.g.:
+            // if (e.target.textContent === "Button 1") { ... }
+        }
+    });
+  </script>
+</body>
+</html>
