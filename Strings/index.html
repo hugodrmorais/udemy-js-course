@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Expandable Text Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #container {
+      width: 90%;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .card {
+      margin: 16px;
+      border: 1px solid #ccc;
+      padding: 16px 32px 32px 16px;
+      position: relative;
+    }
+
+    .card p {
+      margin: 0;
+    }
+
+    /* Styles for when text is hidden/truncated */
+    .card.text-hidden:after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 64px;
+      /* Creates a fading effect at the bottom */
+      background-image: linear-gradient(transparent, white 80%);
+      pointer-events: none; /* Allows clicks to pass through to elements beneath */
+    }
+
+    .card button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+      z-index: 1; /* Ensures button is above the fade effect */
+      border: none;
+      font-size: 1.5em;
+    }
+
+    .card button:hover {
+      color: red; /* Changes button color on hover */
+    }
+
+    body,
+    html {
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="card">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+
+    <div class="card">
+      <p>Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="card">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur</p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Select all paragraph elements within elements having the class "card".
+    const paragraphs = Array.from(document.querySelectorAll(".card p"));
+    // Store the original full text content of each paragraph.
+    const originalTexts = paragraphs.map(p => p.innerText);
+    // Define the maximum length for truncated text.
+    const maxLength = 100;
+
+    // Iterate over each paragraph to apply truncation if necessary.
+    paragraphs.forEach((p, i) => {
+      // Check if the paragraph's text content exceeds the defined maxLength.
+      if (p.innerText.length > maxLength) {
+        // Truncate the text and append "..."
+        p.textContent = p.innerHTML.substring(0, maxLength) + "...";
+
+        // Create a new button element.
+        const btn = document.createElement("button");
+        // Set the button's inner HTML to display a down arrow icon.
+        btn.innerHTML = '<i class="fas fa-chevron-down"></i>';
+        // Add the "text-hidden" class to the parent card, which applies the fade effect.
+        p.parentElement.classList.add("text-hidden");
+
+        // Attach an event listener to the button. When clicked, call toggleText.
+        // The anonymous function is used here to pass 'p' (the paragraph) and 'i' (its index)
+        // as arguments to toggleText, along with the event object.
+        btn.addEventListener("click", function (e) {
+          toggleText(e, p, i);
+        });
+
+        // Append the created button to the parent card element.
+        p.parentElement.appendChild(btn);
+      }
+    });
+
+    // Function to toggle the text display (expand/collapse).
+    function toggleText(e, p, i) {
+      // console.log(e.currentTarget); // Logs the button element that was clicked.
+      // console.log(this); // Would log 'Window' if not for the anonymous function wrapper.
+
+      // Get the parent card element of the clicked button.
+      const card = e.currentTarget.parentElement;
+
+      // Toggle the "text-hidden" class on the card to show/hide the fade effect and full text.
+      card.classList.toggle("text-hidden");
+      // Toggle the Font Awesome icon classes to switch between down and up arrows.
+      e.currentTarget.querySelector("i").classList.toggle("fa-chevron-down");
+      e.currentTarget.querySelector("i").classList.toggle("fa-chevron-up");
+
+      // Check if the card is now in the "text-hidden" state (collapsed).
+      if (card.classList.contains("text-hidden")) {
+        // If collapsed, set the paragraph text back to the truncated version.
+        card.querySelector("p").textContent = originalTexts[i].substring(0, maxLength) + "...";
+      } else {
+        // If expanded, set the paragraph text to its full original content.
+        card.querySelector("p").textContent = originalTexts[i];
+      }
+    }
+  </script>
+</body>
+
+</html>
