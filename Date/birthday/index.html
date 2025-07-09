@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <title>DOM Example Page</title>
+  <meta charset="utf-8">
+  <meta name="author" content="Daniel">
+  <meta name="description" content="Awesome description">
+  <meta name="keywords" content="html5, technology">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="main">
+      <header class="hero">
+        <div class="hero-content">
+          <h1>Complete Javascript Course</h1>
+          <h2>Enter your birth date</h2>
+          <div id="newsletterForm">
+              <input type="date" id="txtBirthDate">
+          </div>
+          <div id="countdownDisplay"></div>
+        </div>
+      </header>
+
+      <main>
+        <section class="content-section">
+          <div class="card card-1">
+            <img src="images/card_01.png" alt="">
+            <p>Selectors</p>
+          </div>
+
+          <div class="card card-2">
+            <img src="images/card_02.jpg" alt="">
+            <p>Positioning</p>
+          </div>
+
+          <div class="card card-3">
+            <img src="images/card_03.jpg" alt="">
+            <p>Fonts</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <article>
+            <header class="content-header">
+              <h2>Article Title</h2>
+            </header>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+          </article>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Copyright &copy; 2018</p>
+      </footer>
+    </div>
+
+    <script src="js/birthday.js"></script>
+    <script type="text/javascript">
+      // Add an event listener to the birth date input.
+      // When the date changes, the checkBirthday function will be called.
+      document.getElementById("txtBirthDate").addEventListener("change", checkBirthday);
+
+      // This function is triggered when the user selects a date in the input field.
+      function checkBirthday(e) {
+        console.log(e.target.value); // Logs the selected date in "YYYY-MM-DD" format.
+        const container = document.getElementById("countdownDisplay"); // Get the div to display the message.
+        const dateParts = e.target.value.split("-"); // Splits the date string into [year, month, day].
+        console.log(dateParts); // Logs the array of date parts.
+        console.log(dateParts.length); // Logs the number of parts (should be 3).
+
+        // Check if the date string was successfully split into at least 3 parts (year, month, day).
+        if (dateParts.length > 2) {
+          // Update the content of the display container.
+          // It calls 'daysUntil' (likely from birthday.js) with month and day.
+          // Note: The original Portuguese 'daysUntil' suggests it calculates days remaining.
+          container.innerHTML = `
+              <p>There are ${daysUntil(dateParts[1], dateParts[2])} day(s) until your birthday</p>
+          `;
+        } else {
+          // If the date format is invalid or cleared, clear the display message.
+          container.textContent = "  ";
+        }
+      }
+    </script>
+</body>
+</html>
