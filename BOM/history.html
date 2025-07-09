@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History Navigation Example</title>
+</head>
+
+<body>
+  <h1>History Navigation</h1>
+
+  <button id="btnBack">Back</button>
+  <br>
+  <button id="btnForward">Forward</button>
+  <br>
+  <button id="btnClose">Close Window</button>
+
+  <p><a href="http://google.com">Go to Google</a></p>
+  <p>Try clicking the Google link, then use the "Back" button.</p>
+  <p>To see 'opener' in action, open this page from another page using `window.open()`.</p>
+
+  <script>
+    // Logs the 'opener' property. This will be 'null' unless this window was opened by another window
+    // using window.open(). If it's opened via window.open(), 'opener' will reference the opening window.
+    console.log("window.opener:", opener);
+
+    // This block will only execute if 'opener' is not null (i.e., if this window was opened by another script).
+    // 'teste2()' is assumed to be a function in the opening window.
+    if (opener) {
+        // Uncomment the line below if you have a 'teste2()' function in the window that opens this page.
+        // opener.teste2();
+        console.log("This window was opened by another window.");
+    } else {
+        console.log("This window was opened directly (no opener).");
+    }
+
+    // Event listener for the "Back" button to navigate back in history.
+    document.getElementById("btnBack").addEventListener("click", function () {
+        history.back();
+    });
+
+    // Event listener for the "Forward" button to navigate forward in history.
+    document.getElementById("btnForward").addEventListener("click", function () {
+        history.forward();
+    });
+
+    // Event listener for the "Close Window" button to close the current browser window/tab.
+    // Note: Browser security policies often restrict 'close()' for windows not opened by script.
+    document.getElementById("btnClose").addEventListener("click", function () {
+        window.close(); // Use window.close() to be explicit.
+    });
+
+  </script>
+</body>
+</html>
