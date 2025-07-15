@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="css/materialize.min.css"
+      media="screen,projection"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style type="text/css">
+      h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .underlined {
+        border-bottom: 3px solid currentColor;
+      }
+
+      .reproved { /* Reproved (Failed) */
+        background-color: red;
+      }
+
+      .approved { /* Approved (Passed) */
+        background-color: green;
+      }
+
+      .form-add {
+        background: #e3ecec;
+        padding-top: 0.75em;
+      }
+
+      .main-title {
+        margin-bottom: 0;
+      }
+
+      .input-field p {
+          margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div
+        class="hero center card-panel materialize-red darken-4 white-text z-depth-3"
+      >
+        <h1 class="materialize-red-text text-lighten-3">
+          Complete Javascript Course
+        </h1>
+      </div>
+
+      <h2 class="materialize-red-text text-lighten-2 underlined main-title">
+        Student Details
+      </h2>
+
+      <form class="form-add" data-edit-student-form>
+        <div class="row">
+          <div class="input-field col s12">
+            <input
+              placeholder="Enter student name"
+              id="first_name"
+              type="text"
+              class="validate"
+            />
+            <label for="first_name" class="active">Student Name</label>
+          </div>
+          <div class="input-field col s12">
+              <p>Grades by Subject</p>
+          </div>
+        </div>
+
+        <div data-edit-grades>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <a class="btn" href="index.html">Cancel</a>
+            <button class="btn" type="submit" name="action">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+    <script src="js/calc.js"></script>
+    <script src="js/Models/Student.model.js"></script>
+    <script src="js/Services/Students.service.js"></script>
+    <script src="js/Services/Subjects.service.js"></script>
+
+    <script src="js/Views/EditStudent.view.js"></script>
+    <script src="js/Controllers/EditStudent.controller.js"></script>
+
+    <script>
+      // Instantiate your StudentsService
+      const studentsService = new StudentsService();
+
+      // Get URL parameters
+      const paramsString = window.location.search;
+      const URLparams = new URLSearchParams(paramsString);
+      const id = parseInt(URLparams.get("id")); // Get the 'id' parameter from the URL and convert to integer
+
+      // Search for the student by ID using the service
+      const student = studentsService.searchById(id);
+
+      // If a student is found, populate the input field with their name
+      if (student) {
+        document.getElementById("first_name").value = student.name;
+      }
+
+      const editStudentView = new EditStudentView(
+        document.querySelector("[data-edit-student-form]"),
+        new SubjectsService().subjects)
+
+      const editStudentController = new EditStudentController(student, editStudentView, studentsService)
+
+      document.querySelector("form").addEventListener("submit", function(e){
+        e.preventDefault()
+        const name = document.querySelector("#first_name").value
+
+        editStudentController.edit(student, name)
+        window.location.assign("index.html")
+      })
+    </script>
+  </body>
+</html>
