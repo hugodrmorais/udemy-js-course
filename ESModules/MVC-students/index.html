@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="css/materialize.min.css"
+      media="screen,projection"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style type="text/css">
+      h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .underlined {
+        border-bottom: 3px solid currentColor;
+      }
+
+      .reproved { /* Reproved (Failed) */
+        background-color: red;
+      }
+
+      .approved { /* Approved (Passed) */
+        background-color: green;
+      }
+
+      .form-add {
+        background: #e3ecec;
+        padding-top: 0.75em;
+      }
+
+      .main-title {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div
+        class="hero center card-panel materialize-red darken-4 white-text z-depth-3"
+      >
+        <h1 class="materialize-red-text text-lighten-3">
+          Complete Javascript Course
+        </h1>
+      </div>
+
+      <h2 class="materialize-red-text text-lighten-2 underlined main-title">
+        Student Data
+      </h2>
+
+      <form class="form-add">
+        <div class="row">
+          <div class="input-field col s8">
+            <input
+              placeholder="Enter student name"
+              id="first_name"
+              type="text"
+              class="validate"
+            />
+            <label for="first_name" class="active">Add Student</label>
+          </div>
+          <div class="input-field col s4">
+            <button class="btn-floating" type="submit" name="action">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="form-search">
+        <div class="row">
+          <div class="input-field col s8">
+            <input
+              placeholder="Enter the student's name"
+              id="search_name"
+              type="text"
+              class="validate"
+            />
+            <label for="search_name" class="active">Search Student</label>
+          </div>
+          <div class="input-field col s4">
+
+          </div>
+        </div>
+      </div>
+
+      <table data-table-students>
+        <thead>
+        </thead>
+
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <script src="js/calc.js"></script>
+    <script src="js/Models/Student.model.js"></script>
+    <script src="js/Services/Students.service.js"></script>
+    <script src="js/Services/Subjects.service.js"></script>
+    <script src="js/Views/Students.view.js"></script>
+    <script src="js/Controllers/Students.controller.js"></script> -->
+    <script src="js/index.js" type="module"></script>
+  </body>
+</html>
