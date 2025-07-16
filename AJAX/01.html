@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHttpRequest Example</title>
+</head>
+
+<body>
+    <h1>First Example with XMLHttpRequest</h1>
+
+    <script>
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+
+        // Configure the request: GET method for 'data.json'
+        xhr.open("GET", "data.json");
+        // Send the request
+        xhr.send(null);
+
+        // Assign the event handler for state changes
+        xhr.onreadystatechange = checkAjaxStatus;
+
+        // Function to check the AJAX request status
+        function checkAjaxStatus() {
+            // Check if the request is complete (readyState 4)
+            if (xhr.readyState === 4) {
+                // Check if the request was successful (status 200 OK or 304 Not Modified)
+                if (xhr.status === 200 || xhr.status === 304) {
+                    // Parse the JSON response text
+                    const json = JSON.parse(xhr.responseText);
+                    console.log(json);
+                    // Access and log the 'name' property of the first element
+                    console.log(json[0].name);
+
+                    // Call a function to display the data (implementation pending)
+                    displayData(json);
+                } else {
+                    // Alert if something went wrong with the server response
+                    alert("Something went wrong with the server: " + xhr.status);
+                }
+            }
+        }
+
+        // Function to display the fetched data (currently empty)
+        function displayData(data) {
+            // This function would typically manipulate the DOM to show the 'data'
+        }
+    </script>
+</body>
+
+</html>

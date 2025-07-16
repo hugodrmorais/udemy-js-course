@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHttpRequest Example</title>
+</head>
+
+<body>
+    <h1>First Example with XMLHttpRequest</h1>
+
+    <script src="createXMLHttpRequest.js"></script>
+    <script>
+        // Call the reusable function to make an AJAX request
+        // Arguments: HTTP method (GET), URL ('data.json'), and a callback function
+        createXMLHttpRequest("GET", "data.json", showUsers);
+
+        // Callback function to handle the data received from the request
+        function showUsers(data) {
+            console.log(data); // Log the received data to the console
+        }
+    </script>
+</body>
+
+</html>
