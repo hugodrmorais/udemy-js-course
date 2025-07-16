@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // Define a string to search within
+    let str = 'today is my favorite day 26/02/2018. My is Jan 1st';
+
+    // Define a string for the regex pattern (not directly used as regex here, but kept for context)
+    let strRegex = "my";
+
+    // Create a regular expression object
+    // The pattern is '\w', which matches any word character (alphanumeric + underscore)
+    // 'g' flag for global search (find all matches, not just the first)
+    // 'i' flag for case-insensitive search
+    const regex = new RegExp("\\w", "gi");
+
+    // Log the 'lastIndex' property of the regex. This is the starting position for the next match.
+    // For a new regex, it's usually 0.
+    console.log(regex.lastIndex);
+
+    // Execute the regex search on the string.
+    // For the first call, it starts from lastIndex (0) and finds the first word character.
+    // It returns an array with the match and its properties.
+    console.log(regex.exec(str));
+
+    // Log 'lastIndex' again. After an exec() call with the 'g' flag,
+    // lastIndex is updated to the position immediately after the last match.
+    console.log(regex.lastIndex);
+
+    // Execute the regex search again.
+    // This time, it starts from the updated lastIndex and finds the next word character.
+    console.log(regex.exec(str));
+  </script>
+</body>
+</html>
