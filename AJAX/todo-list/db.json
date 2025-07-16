@@ -41,12 +41,25 @@
       "userId": 3
     },
     {
-      "title": "asdasfsdfd sdfsd",
-      "completed": false,
-      "createdAt": 1629097771279,
-      "updatedAt": null,
-      "id": 9,
-      "userId": 2
+      "title": "Hugo Task",
+      "userId": 3,
+      "id": 10
+    },
+    {
+      "title": "hugo edit",
+      "completed": true,
+      "createdAt": 1752674935261,
+      "updatedAt": 1752676409103,
+      "id": 11,
+      "userId": "2"
+    },
+    {
+      "title": "nova tarefa",
+      "completed": true,
+      "createdAt": 1752674940082,
+      "updatedAt": 1752674956440,
+      "id": 12,
+      "userId": "2"
     }
   ],
   "users": [
