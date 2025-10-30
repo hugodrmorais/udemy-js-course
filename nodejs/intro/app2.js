@@ -1,0 +1,10 @@
+const {getCount, increment, decrement} = require("./myCount")
+
+console.log(getCount())
+increment()
+console.log(getCount())
+decrement()
+console.log(getCount())
+increment()
+increment()
+console.log(getCount())
